@@ -1,6 +1,6 @@
 {
   "name": "dsh-session-theme",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "DSH web plugin: show every session's theme in the left sidebar on open — warms the session projection cache at startup so session.list carries titles for cold sessions.",
   "repository": {
     "type": "git",
@@ -33,7 +33,8 @@
     "cordis.patch.yml",
     "dsh.plugin.json",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "README.zh-CN.md"
   ],
   "license": "MIT",
   "engines": {

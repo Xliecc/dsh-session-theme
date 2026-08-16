@@ -1,8 +1,8 @@
 {
   "id": "dsh-session-theme",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "./lib/index.js",
-  "description": "DSH web 插件：打开页面时左侧边栏直接显示每个会话的主题，无需点进会话。启动时预热会话投影缓存（coldSnapshot），让 session.list 为冷会话补全 title 投影。",
+  "description": "DSH web plugin: show every session's theme in the left sidebar on load. Warms the session projection cache at startup so session.list carries title projections for cold sessions.",
   "engines": {
     "dsh": ">=0.1.0"
   },

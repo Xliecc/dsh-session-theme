@@ -1,39 +1,51 @@
-# dsh-session-theme（会话主题直显）
+# dsh-session-theme
 
-DSH 网页端插件：打开页面时**左侧边栏直接显示每个会话的主题**，不用再点进会话。
+> **English** | [简体中文](./README.zh-CN.md)
 
-## 解决什么问题
+DSH web plugin: the left sidebar shows **every session's theme right on page load** — no need to click into a conversation first.
 
-DSH 侧边栏的会话列表里，**没点开过的会话不显示主题**，只显示工作区文件夹名
-（或占位 ID），点进某个会话后主题才出现。
+## The problem
 
-根因：`session.list` 对「本进程从未打开过的冷会话」只读投影缓存的零 I/O 行
-（`cachedSnapshot`）；如果某个会话的 title 投影从未被写入缓存，列表行就没有
-`title`，侧边栏就回退到文件夹名。只有打开会话（触发完整冷读梯子）才会恢复出
-标题。
+In the DSH sidebar, sessions you haven't opened yet show **no theme** — just the workspace folder name (or a placeholder id). The theme only appears after you click into the session.
 
-## 原理
+**Root cause:** for "cold" sessions (never opened in this process), `session.list` only reads the projection cache's zero-I/O rows (`cachedSnapshot`). If a session's `title` projection was never checkpointed, its list row has no `title`, so the sidebar falls back to the folder name. Only opening the session (which triggers the full cold-read ladder) recovers the title.
 
-插件在**启动时**对每个持久化会话执行投影缓存的冷读梯子（`coldSnapshot`）：
-从存储日志重新折叠出 `title` 投影并**持久化写回缓存**。之后 `session.list`
-返回的每一行都带 `title` 投影 → 侧边栏原生显示每个会话的真实主题，无需点击。
+## How it works
 
-- 只处理「冷会话」（本进程未打开的）；已加载会话的列表行本来就带实时投影。
-- 逐个会话 fail-soft：某个日志损坏不影响其它会话，也不阻塞启动。
-- 写回是幂等的：下次启动直接命中缓存快路径，秒开。
+At **startup** the plugin runs the projection cache's cold-read ladder (`coldSnapshot`) for every persisted session: it refolds the `title` projection from the stored log and **durably writes it back to the cache**. After that, every row returned by `session.list` carries a `title` projection → the sidebar natively shows each session's real theme, no click required.
 
-## 安装
+- Only "cold" sessions are processed (not opened in this process); sessions that are already loaded already carry live projections in their list rows.
+- Fail-soft per session: a corrupted log never affects other sessions and never blocks startup.
+- Idempotent write-back: the next boot hits the cache fast path instantly.
 
-link 安装、零外部依赖（host 端只用标准服务）：
+## Install
+
+Link install, zero external dependencies (host side uses only standard services):
 
 ```sh
-dsh plugin --profile web add link:C:/Users/Lie/dsh-session-theme
+dsh plugin --profile web add link:/path/to/dsh-session-theme
 ```
 
-或使用 DSH 热装配（`dev_install_package`）+ 热重载（`dev_reload_package`），
-然后**硬刷新浏览器**（Ctrl/Cmd+Shift+R）重新拉取 `session.list`。
+Or clone from GitHub:
 
-## 文件
+```sh
+git clone https://github.com/Xliecc/dsh-session-theme.git
+dsh plugin --profile web add link:./dsh-session-theme
+```
 
-- `lib/index.js` — host 侧：启动时预热投影缓存（全部行为）
-- `lib/client.js` — 浏览器侧占位（无操作，保持注册清单一致）
+Or install from npm:
+
+```sh
+dsh plugin add dsh-session-theme
+```
+
+After installing, **hard-refresh the browser** (Ctrl/Cmd+Shift+R) so the client re-pulls `session.list`.
+
+## Files
+
+- `lib/index.js` — host side: warms the projection cache at startup (all behavior)
+- `lib/client.js` — browser-side stub (no-op, keeps the registered manifest consistent)
+
+## License
+
+MIT

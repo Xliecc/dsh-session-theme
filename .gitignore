@@ -1,0 +1,39 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.pid.lock
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Output of 'npm pack'
+*.tgz
+
+# dotenv environment variable files
+.env
+.env.*
+
+# coverage
+coverage
+*.lcov
+
+# scratch / local helpers
+_check.mjs
+*.tmp
+
+# pnpm
+.pnpm-store
+.pnp.*
+.yarn/*
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions

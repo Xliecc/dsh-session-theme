@@ -1,0 +1,5 @@
+# dsh-session-theme bundle patch: insert the host plugin into the composition.
+- insert:
+    - id: dsh-session-theme
+      name: 'dsh-session-theme'
+      config: {}

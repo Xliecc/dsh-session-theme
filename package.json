@@ -2,6 +2,10 @@
   "name": "dsh-session-theme",
   "version": "0.2.0",
   "description": "DSH web plugin: show every session's theme in the left sidebar on open — warms the session projection cache at startup so session.list carries titles for cold sessions.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xliecc/dsh-session-theme.git"
+  },
   "type": "module",
   "main": "lib/index.js",
   "keywords": [

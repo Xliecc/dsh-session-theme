@@ -37,7 +37,8 @@
     "README.zh-CN.md",
     "CHANGELOG.md",
     "ARCHITECTURE.md",
-    "CONTRIBUTING.md"
+    "CONTRIBUTING.md",
+    "SECURITY.md"
   ],
   "scripts": {
     "test": "node --test \"test/*.test.js\"",

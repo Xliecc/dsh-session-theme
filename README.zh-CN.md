@@ -2,6 +2,11 @@
 
 > [English](./README.md) | **简体中文**
 
+![npm version](https://img.shields.io/npm/v/dsh-session-theme)
+![npm downloads](https://img.shields.io/npm/dm/dsh-session-theme)
+![license](https://img.shields.io/github/license/Xliecc/dsh-session-theme)
+[![CI](https://github.com/Xliecc/dsh-session-theme/actions/workflows/ci.yml/badge.svg)](https://github.com/Xliecc/dsh-session-theme/actions/workflows/ci.yml)
+
 DSH 网页端插件：打开页面时**左侧边栏直接显示每个会话的主题**，不用再点进会话。
 
 ## 解决什么问题

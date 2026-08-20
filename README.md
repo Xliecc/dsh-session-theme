@@ -2,6 +2,11 @@
 
 > **English** | [简体中文](./README.zh-CN.md)
 
+![npm version](https://img.shields.io/npm/v/dsh-session-theme)
+![npm downloads](https://img.shields.io/npm/dm/dsh-session-theme)
+![license](https://img.shields.io/github/license/Xliecc/dsh-session-theme)
+[![CI](https://github.com/Xliecc/dsh-session-theme/actions/workflows/ci.yml/badge.svg)](https://github.com/Xliecc/dsh-session-theme/actions/workflows/ci.yml)
+
 DSH web plugin: the left sidebar shows **every session's theme right on page load** — no need to click into a conversation first.
 
 ## The problem

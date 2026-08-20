@@ -34,8 +34,13 @@
     "dsh.plugin.json",
     "LICENSE",
     "README.md",
-    "README.zh-CN.md"
+    "README.zh-CN.md",
+    "CHANGELOG.md"
   ],
+  "scripts": {
+    "test": "node --test \"test/*.test.js\"",
+    "pack": "npm pack"
+  },
   "license": "MIT",
   "engines": {
     "node": ">=20"

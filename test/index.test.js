@@ -63,6 +63,28 @@ test('plan: warm dedupes by id when metas repeat', () => {
 	assert.equal(toWarm.length, 2) // plan keeps rows; dedupe happens at execution
 })
 
+test('package: shipped files include everything the plugin needs', async () => {
+	const pkg = JSON.parse(
+		await import('node:fs').then((fs) =>
+			fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'),
+		),
+	)
+	// NOTE: `files` lists directories/globs, not individual files. Check that
+	// the directories holding the plugin's runtime code are included.
+	const required = [
+		'lib',
+		'cordis.patch.yml',
+		'dsh.plugin.json',
+		'README.md',
+	]
+	const files = pkg.files ?? []
+	for (const f of required) {
+		assert.ok(files.includes(f), `package.json files must include ${f}`)
+	}
+	// The manifest must be installable: dsh.bundle.patch must point at the yml
+	assert.ok(pkg.dsh?.bundle?.patch, 'dsh.bundle.patch is required for dsh plugin add')
+})
+
 test('integration: apply warm pass fails soft per session and globally', async () => {
 	// Build a fake ctx with in-memory services and run the exported apply().
 	const { apply } = await import('../lib/index.js')

@@ -35,7 +35,9 @@
     "LICENSE",
     "README.md",
     "README.zh-CN.md",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "ARCHITECTURE.md",
+    "CONTRIBUTING.md"
   ],
   "scripts": {
     "test": "node --test \"test/*.test.js\"",

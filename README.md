@@ -23,6 +23,14 @@ At **startup** the plugin runs the projection cache's cold-read ladder (`coldSna
 - Fail-soft per session: a corrupted log never affects other sessions and never blocks startup.
 - Idempotent write-back: the next boot hits the cache fast path instantly.
 
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the full design and data flow.
+
+## Verify it works
+
+1. Install the plugin (any method below), then **hard-refresh the browser** (Ctrl/Cmd+Shift+R).
+2. Open the DSH Web sidebar — every session row should show its conversation theme, not a folder name.
+3. To confirm the hit, run: `dsh plugin --profile web add dsh-session-theme` and watch the server log for the line: `dsh-session-theme: projection cache warmed (N sessions)`.
+
 ## Install
 
 Link install, zero external dependencies (host side uses only standard services):
